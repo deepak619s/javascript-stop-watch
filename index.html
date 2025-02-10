@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My stop watch</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html{
+            font-size: 62.5%;
+        }
+
+        body{
+            background-color: grey;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        section{
+            background-color: black;
+            margin-top: 20rem;
+            width: 20%;
+        }
+
+        #countDown{
+            color: rgba(244, 106, 106, 0.556);
+            font-size: 10rem;
+            margin: 5px 11rem;
+        }
+
+        .buttons{
+            margin-bottom: 5rem;
+            margin-left: 10px;
+        }
+
+        button{
+            border-radius: 30px;
+            padding: 20px;
+            margin: 15px 10px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        button:hover{
+            background-color: #000;
+            color: #fff;
+            border-color: #fff;
+        }
+
+        .resetValue{
+            font-size: 2rem;
+            color: rgba(244, 106, 106, 0.556);
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <p id="countDown">0</p>
+        <div class="buttons">
+            <button class="start_btn">Start</button>
+            <button class="reset_btn">Reset</button>
+            <button class="stop_btn">Stop</button>
+            <button class="time_btn">Get Time</button>
+            <button class="clear_btn">Clear Time</button>
+        </div>
+
+        <div class="resetValue"></div>
+    </section>
+    <script>
+        const countDown = document.getElementById('countDown');
+        const resetValueElement = document.querySelector('.resetValue');
+        let startCount = 0;
+        let intervalID;
+
+        // Function to start the timer
+        const startTimer = () => {
+            intervalID = setInterval(() => {
+                countDown.innerText = startCount++;
+            }, 1000);
+        };
+
+        // Function to stop the timer
+        const stopTimer = () => {
+            showStopValue();
+            clearInterval(intervalID);
+        };
+
+        // Function to reset the timer
+        const resetTimer = () => {
+            let startCount = 0;
+            countDown.innerText = startCount;
+            clearInterval(intervalID);
+        };
+
+        // Function to showStopValue the timer
+        const showStopValue = () => {
+            const newPara = document.createElement('p');
+            newPara.innerText = `The stop time is ${startCount - 1}`;
+            resetValueElement.append(newPara);
+        };
+
+        // Function to clearTimeValue the timer
+        const clearTimeValue = () => {
+            resetValueElement.innerHTML = ""; 
+        };
+
+        // Event Listeners
+        document.querySelector('.start_btn').addEventListener('click', startTimer);
+        document.querySelector('.reset_btn').addEventListener('click', resetTimer);
+        document.querySelector('.stop_btn').addEventListener('click', stopTimer);
+        document.querySelector('.time_btn').addEventListener('click', showStopValue);
+        document.querySelector('.clear_btn').addEventListener('click', clearTimeValue);
+    </script>
+</body>
+</html>
